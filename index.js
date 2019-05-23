@@ -8,8 +8,6 @@ const isUserFreeTier = request => {
   return userId >= 100 && userId < 200;
 };
 
-const everyone = request => true;
-
 const stages = [
   {
     name: '1',
@@ -19,10 +17,6 @@ const stages = [
     name: '2',
     criteria: isUserFreeTier
   },
-  {
-    name: '3',
-    criteria: everyone
-  }
 ];
 
 async function getDeployId(request) {
