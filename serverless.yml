@@ -1,0 +1,26 @@
+service:
+    name: stager-of-releases
+
+provider:
+  name: cloudflare
+  config:
+    accountId: ${env:CLOUDFLARE_ACCOUNT}
+    zoneId: ${env:CLOUDFLARE_ZONE} 
+
+plugins:
+  - serverless-cloudflare-workers
+
+functions:
+  worker:
+    name: worker
+    script: index
+    resources:
+      kv:
+        - variable: RELEASE_STATE
+          namespace: RELEASE_STATE
+        - variable: APP_DEPLOYS
+          namespace: APP_DEPLOYS
+    events:
+      - http:
+          url: https://todos.kubernetesfordogs.com/*
+          method: GET
