@@ -48,15 +48,27 @@ func main() {
 		}
 	}
 
-	// this is NOT a staged release, just ship it!
 	var state *ReleaseState
 
+	// this is NOT a staged release, just ship it!
 	if *stage == "" {
 		state = &ReleaseState{
 			Current: deployId,
 			Next:    nil,
 			Stage:   nil,
 		}
+		// here we need to fetch existing state first!
+	} else {
+		bytes, err := api.ReadWorkersKV(context.Background(), nsId, "state")
+		if err != nil {
+			log.Fatal(err)
+		}
+		json.Unmarshal(bytes, &state)
+		if err != nil {
+			log.Fatal(err)
+		}
+		state.Next = deployId
+		state.Stage = stage
 	}
 
 	releaseState, err := json.Marshal(state)

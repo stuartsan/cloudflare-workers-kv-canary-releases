@@ -12,15 +12,15 @@ const everyone = request => true;
 
 const stages = [
   {
-    name: 1,
+    name: '1',
     criteria: isUserInternal
   },
   {
-    name: 2,
+    name: '2',
     criteria: isUserFreeTier
   },
   {
-    name: 3,
+    name: '3',
     criteria: everyone
   }
 ];
