@@ -10,13 +10,13 @@ const isUserFreeTier = request => {
 
 const stages = [
   {
-    name: '1',
+    name: "1",
     criteria: isUserInternal
   },
   {
-    name: '2',
+    name: "2",
     criteria: isUserFreeTier
-  },
+  }
 ];
 
 async function getDeployId(request) {
@@ -31,11 +31,9 @@ async function getDeployId(request) {
     stage => stage.name === state.stage
   );
 
-  if (
-    stages
-      .slice(0, currentStageIndex + 1)
-      .some(stage => stage.criteria(request))
-  ) {
+  const stagesLeadingUpToCurrentStage = stages.slice(0, currentStageIndex + 1);
+
+  if (stagesLeadingUpToCurrentStage.some(stage => stage.criteria(request))) {
     return state.next;
   }
 
@@ -45,16 +43,16 @@ async function getDeployId(request) {
 async function handleRequest(request) {
   const deployId = await getDeployId(request);
   const originalPath = new URL(request.url).pathname.slice(1);
-  const path = originalPath === '' ? 'index.html' : originalPath;
+  const path = originalPath === "" ? "index.html" : originalPath;
   const body = await APP_DEPLOYS.get(`${deployId}/${path}`);
 
   const extensionsToContentTypes = {
-    'css': 'text/css',
-    'html': 'text/html',
-    'js': 'application/javascript'
+    css: "text/css",
+    html: "text/html",
+    js: "application/javascript"
   };
 
-  const contentType = extensionsToContentTypes[path.split('.').pop()];
+  const contentType = extensionsToContentTypes[path.split(".").pop()];
 
   return new Response(body, {
     headers: { "Content-Type": contentType }
