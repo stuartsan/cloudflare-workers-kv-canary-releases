@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"flag"
 	"log"
+	"os"
 
 	"github.com/cloudflare/cloudflare-go"
 )
