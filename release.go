@@ -64,7 +64,7 @@ func main() {
 		if err != nil {
 			log.Fatal(err)
 		}
-		json.Unmarshal(bytes, &state)
+		err = json.Unmarshal(bytes, &state)
 		if err != nil {
 			log.Fatal(err)
 		}

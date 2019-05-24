@@ -51,7 +51,7 @@ func main() {
 
 	err = os.Chdir(*dir)
 	if err != nil {
-		panic(err)
+		log.Fatal(err)
 	}
 
 	err = filepath.Walk(".", func(path string, info os.FileInfo, err error) error {
@@ -68,7 +68,8 @@ func main() {
 
 			_, err = api.WriteWorkersKV(context.Background(), nsId, key, value)
 			if err != nil {
-				log.Fatal(err)
+				return err
+
 			}
 		}
 		return nil
