@@ -22,5 +22,5 @@ functions:
           namespace: APP_DEPLOYS
     events:
       - http:
-          url: https://todos.kubernetesfordogs.com/*
+          url: https://app.stuartsandine.com/*
           method: GET
