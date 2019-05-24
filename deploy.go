@@ -15,10 +15,10 @@ import (
 func main() {
 	dir := flag.String("dir", "", "Directory whose contents will be deployed to Workers KV")
 	deployId := flag.String("deploy-id", "", "ID for deployment (key prefix). Why not use a git SHA?")
-	cfAPIKey := flag.String("cf-api-key", "", "CloudFlare API key")
-	cfEmail := flag.String("cf-email", "", "CloudFlare email")
-	cfAccount := flag.String("cf-account", "", "CloudFlare account id")
 	cfNamespace := flag.String("cf-kv-namespace", "APP_DEPLOYS", "CloudFlare workers KV namespace name to write to")
+	cfAPIKey := flag.String("cf-api-key", os.Getenv("CLOUDFLARE_AUTH_KEY"), "CloudFlare API key")
+	cfEmail := flag.String("cf-email", os.Getenv("CLOUDFLARE_AUTH_EMAIL"), "CloudFlare email")
+	cfAccount := flag.String("cf-account", os.Getenv("CLOUDFLARE_ACCOUNT"), "CloudFlare account id")
 
 	flag.Parse()
 

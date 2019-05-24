@@ -11,11 +11,11 @@ The worker script defines the stages: whether they're based on ip address, geolo
 
 ## Setup
 - go into Cloudflare account and in the dashboard for a particular site, enable workers, and enable workers KV
-- find your CF API key and set `CLOUDFLARE_AUTH_KEY` and `CLOUDFLARE_AUTH_EMAIL` environment variables to appease serverless. And `CLOUDFLARE_ACCOUNT`.
+- find your CF API key and set `CLOUDFLARE_AUTH_KEY` and `CLOUDFLARE_AUTH_EMAIL` environment variables to appease serverless. And `CLOUDFLARE_ACCOUNT` and `CLOUDFLARE_ZONE`.
 - deploy the worker, create the KV namespaces, and bind them to the worker: `serverless deploy`
 
 ### Deploy app
-Deploy both the `current` and `next` versions:
+Deploy both the `current` and `next` versions so we have a "new" thing to release:
 
 `go run deploy.go -dir app/current/ -cf-account $CLOUDFLARE_ACCOUNT -cf-api-key $CLOUDFLARE_AUTH_KEY -cf-email $CLOUDFLARE_AUTH_EMAIL -cf-kv-namespace APP_DEPLOYS -deploy-id current`
 
